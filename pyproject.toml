@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "diffused_fields"
+dynamic = ["version"]
+description = "A Python package for diffusion-based methods on geometric manifolds"
+readme = "README.md"
+authors = [
+    { name = "Cem Bilaloglu", email = "cem.bilaloglu@idiap.ch" },
+]
+requires-python = ">=3.12"
+keywords = [
+    "diffusion",
+    "point-cloud",
+    "mesh",
+    "manifolds",
+    "walk-on-spheres",
+    "geometric-algebra",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
+dependencies = [
+    # Core dependencies
+    "numpy>=1.21.0",
+    "scipy>=1.7.0",
+    "PyYAML>=6.0",
+    "tqdm",
+    # Geometric algebra (batched Rotor type for orientation averaging).
+    # Not yet on PyPI -- install from source, e.g. `pip install -e ../gafropy`
+    # or from https://gitlab.com/tloew/gafropy.
+    "gafropy",
+    # Point cloud processing
+    "trimesh>=4.0.0",
+    "scikit-learn>=1.0.0",
+    "potpourri3d",
+    "robust_laplacian",
+    "pcdiff",
+    # Reinforcement Learning
+    "stable-baselines3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "black",
+    "flake8",
+]
+
+[project.urls]
+Paper = "http://arxiv.org/abs/2402.04862"
+Source = "https://github.com/idiap/diffused_fields" # Update when available
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = { attr = "diffused_fields.__version__" }

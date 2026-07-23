@@ -1,0 +1,78 @@
+# Diffused Fields
+
+This package is supplementary material for the paper **"Object-centric Task Representation and Transfer using Diffused Orientation Fields"**.
+
+This is the **core package** that provides fundamental diffusion algorithms and geometric manifold operations for computing **Diffused Orientation Fields (DOF)**.
+
+For robot manipulation experiments using **DOF**, see the companion package:
+- **[diffused_fields_robotics](https://github.com/idiap/diffused_fields_robotics)** (depends on this package) - Object-centric robot manipulation applications: local action primitives (peeling, slicing and tactile coverage), trajectory optimization, and reinforcement learning using DOF.
+
+## Features
+
+**Core package for solving orientation valued diffusion PDE (i.e., heat equation) on geometric manifolds.**
+
+This package provides implementations of both traditional diffusion solvers and walk-on-spheres methods on point clouds for various data types (scalars, vectors, quaternions).
+
+- **Diffusion on Manifolds**: Scalar, vector, and quaternion diffusion on point clouds
+- **Walk-on-Spheres Methods**: Monte Carlo-based diffusion solvers for point clouds and various geometric primitives
+- **Comparisons to Baselines**: Comparison to nearest frame projection, tangent vector projection and Euclidean diffusion baselines
+
+## Installation
+
+### Complete Installation (Recommended)
+
+Follow the installation instructions of the **[diffused_fields_robotics](https://github.com/idiap/diffused_fields_robotics)**
+
+### Stand-alone Installation
+
+```bash
+git clone https://github.com/idiap/diffused_fields.git
+cd diffused_fields
+
+# Create and activate a virtual environment named 'df'
+python3.12 -m venv df
+source df/bin/activate
+
+# Install the package in editable mode
+pip install -e .
+```
+
+## Repository Structure
+
+```
+diffused_fields/
+├── src/diffused_fields/     # Main package source code
+│   ├── core/                # Core algorithms and data structures
+│   ├── diffusion/           # Diffusion solvers (scalar, vector, quaternion)
+│   ├── manifold/            # Manifold operations and geometry
+│   ├── utils/                # Utility functions
+│   └── baselines/           # Baseline methods for comparison
+└── tests/                   # Unit tests
+```
+
+## Paper and Citation
+
+If you use this package in your research, please cite:
+
+```bibtex
+@online{bilalogluTactileErgodicControl2024,
+  title = {Tactile {{Ergodic Control Using Diffusion}} and {{Geometric Algebra}}},
+  author = {Bilaloglu, Cem and Löw, Tobias and Calinon, Sylvain},
+  date = {2024-02-07},
+  eprint = {2402.04862},
+  eprinttype = {arxiv},
+  eprintclass = {cs},
+  url = {http://arxiv.org/abs/2402.04862}
+}
+```
+
+## Dependencies
+
+See `pyproject.toml` for the full, versioned dependency list. Notable ones:
+
+- [gafropy](https://gitlab.com/tloew/gafropy) - geometric algebra (batched `Rotor` type for orientation averaging)
+- [robust_laplacian](https://github.com/nmwsharp/robust-laplacians-py) - discrete Laplacian on point clouds and meshes
+- [trimesh](https://trimesh.org) - point cloud and mesh IO
+- [scikit-learn](https://scikit-learn.org) - DBSCAN clustering
+
+The original code is maintained by Cem Bilaloglu and licensed under the MIT License. [diffused_fields](https://github.com/idiap/diffused_fields)
