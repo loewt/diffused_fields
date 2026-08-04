@@ -1,0 +1,17 @@
+numpy>=1.21.0
+scipy>=1.7.0
+PyYAML>=6.0
+tqdm
+gafropy
+trimesh>=4.0.0
+scikit-learn>=1.0.0
+potpourri3d
+robust_laplacian
+pcdiff
+stable-baselines3
+
+[dev]
+pytest>=6.0
+pytest-cov
+black
+flake8

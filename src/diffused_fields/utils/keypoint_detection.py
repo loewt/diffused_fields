@@ -14,7 +14,8 @@ such as endpoints for elongated objects like bananas.
 """
 
 import numpy as np
-from diffused_fields.diffusion import PointcloudScalarDiffusion
+from diffused_fields.problem import DiffusionProblem
+from diffused_fields.solver import LaplacianSolver
 
 
 def find_endpoints_via_diffusion(
@@ -59,15 +60,9 @@ def find_endpoints_via_diffusion(
 
     # STAGE 1: Run scalar diffusion from middle point to find first endpoint
     print("Stage 1: Finding first endpoint...")
-    scalar_diffusion_1 = PointcloudScalarDiffusion(
-        pcloud,
-        diffusion_scalar=100.0
-    )
-    scalar_diffusion_1.source_vertices = [middle_point_idx]
-    scalar_diffusion_1.get_local_bases()
-
-    # Get the scalar field (temperature values)
-    scalar_field_1 = scalar_diffusion_1.ut
+    solver = LaplacianSolver(diffusion_scalar=100.0)
+    problem_1 = DiffusionProblem(pcloud, source_vertices=[middle_point_idx])
+    scalar_field_1 = solver.solve_scalar(problem_1).values
 
     # Normalize to [0, 1]
     scalar_min = scalar_field_1.min()
@@ -83,15 +78,8 @@ def find_endpoints_via_diffusion(
 
     # STAGE 2: Run diffusion from first endpoint to find second endpoint
     print("Stage 2: Finding second endpoint from first endpoint...")
-    scalar_diffusion_2 = PointcloudScalarDiffusion(
-        pcloud,
-        diffusion_scalar=100.0
-    )
-    scalar_diffusion_2.source_vertices = [endpoint1]
-    scalar_diffusion_2.get_local_bases()
-
-    # Get the scalar field from second diffusion
-    scalar_field_2 = scalar_diffusion_2.ut
+    problem_2 = DiffusionProblem(pcloud, source_vertices=[endpoint1])
+    scalar_field_2 = solver.solve_scalar(problem_2).values
 
     # Normalize to [0, 1]
     scalar_min_2 = scalar_field_2.min()

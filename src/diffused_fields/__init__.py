@@ -46,19 +46,19 @@ try:
 except ImportError as e:
     print(f"Warning: Manifold submodule import failed: {e}")
 
-# Diffusion submodule - diffusion algorithms and solvers
+# Solver/Field/Problem - diffusion algorithms and solvers
 try:
-    from .diffusion import (
-        DiffusionSolver, PointcloudScalarDiffusion,
-        WalkOnSpheresDiffusion
-    )
+    from .field import Field, QuaternionField, ScalarField, VectorField
+    from .problem import DiffusionProblem, Problem
+    from .solver import LaplacianSolver, Solver, WalkOnSpheresSolver
     _DIFFUSION_IMPORTS = [
-        "DiffusionSolver", "PointcloudScalarDiffusion",
-        "WalkOnSpheresDiffusion"
+        "Field", "ScalarField", "VectorField", "QuaternionField",
+        "Problem", "DiffusionProblem",
+        "Solver", "LaplacianSolver", "WalkOnSpheresSolver",
     ]
 
 except ImportError as e:
-    print(f"Warning: Diffusion submodule import failed: {e}")
+    print(f"Warning: Solver/Field/Problem submodule import failed: {e}")
 
 # Utils submodule - utility functions
 try:
@@ -77,8 +77,7 @@ except ImportError as e:
 __all__ = _MANIFOLD_IMPORTS + _DIFFUSION_IMPORTS + _UTILS_IMPORTS
 
 # Provide easy access to submodules
-from . import manifold
-from . import diffusion
+from . import field, manifold, problem, solver
 
 # Optional submodules (may fail)
 try:
